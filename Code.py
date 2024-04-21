@@ -5,8 +5,6 @@
 
 # ## Importing the libraries
 
-# In[1]:
-
 
 import pandas as pd
 import numpy as np
@@ -16,8 +14,6 @@ import seaborn as sns
 
 # ## Importing the dataset
 
-# In[2]:
-
 
 df = pd.read_csv('cancer.csv')
 df.head()
@@ -25,26 +21,21 @@ df.head()
 
 # ## Data Cleaning
 
-# In[3]:
 
 
 df.isna().sum()
 
 
-# In[4]:
 
 
 # M = Malignant (Cancer detected), B = Benign (No Cancer)
 df['diagnosis'].value_counts()
 
 
-# In[5]:
 
 
 sns.countplot(df['diagnosis'])
 
-
-# In[6]:
 
 
 df.dtypes
@@ -52,14 +43,12 @@ df.dtypes
 
 # ## Enocoding categorical data 
 
-# In[7]:
 
 
 from sklearn.preprocessing import LabelEncoder
 le = LabelEncoder()
 
 
-# In[8]:
 
 
 df.iloc[:,1] = le.fit_transform(df.iloc[:,1].values)
@@ -67,19 +56,16 @@ df.iloc[:,1] = le.fit_transform(df.iloc[:,1].values)
 
 # ## Analyzing Data (only for features having a mean values)
 
-# In[9]:
 
 
 sns.pairplot(df.iloc[:,1:6], hue = 'diagnosis')
 
 
-# In[10]:
 
 
 df.iloc[:,1:12].corr()
 
 
-# In[11]:
 
 
 plt.figure(figsize=(8,8))
@@ -88,14 +74,12 @@ sns.heatmap(df.iloc[:,1:12].corr(), annot = True, fmt = '.0%')
 
 # ##  Dataset Splitting (Training set & Test set)
 
-# In[12]:
 
 
 X = df.iloc[:,2:].values
 y = df.iloc[:,1].values
 
 
-# In[13]:
 
 
 from sklearn.model_selection import train_test_split
@@ -104,63 +88,54 @@ X_train, X_test, y_train, y_test = train_test_split(X,y, test_size = 0.25, rando
 
 # ## Feature Scaling
 
-# In[14]:
 
 
 from sklearn.preprocessing import StandardScaler
 sc = StandardScaler()
 
 
-# In[15]:
 
 
 X_train = sc.fit_transform(X_train)
 X_test = sc.fit_transform(X_test)
 
 
-# In[16]:
 
 
 print(np.unique(X_train))
 print(X_train.dtype)
 
 
-# In[17]:
 
 
 print(np.unique(X_test))
 print(X_test.dtype)
 
 
-# In[18]:
 
 
 print(np.unique(y_train))
 print(y_train.dtype)
 
 
-# In[19]:
 
 
 print(np.unique(y_test))
 print(y_test.dtype)
 
 
-# In[20]:
 
 
 y_train = y_train.astype(int)
 y_test = y_test.astype(int)
 
 
-# In[21]:
 
 
 print(np.unique(y_train))
 print(y_train.dtype)
 
 
-# In[22]:
 
 
 print(np.unique(y_test))
@@ -169,7 +144,6 @@ print(y_test.dtype)
 
 # ## Model Training
 
-# In[23]:
 
 
 def models(X_train, y_train):
@@ -196,7 +170,6 @@ def models(X_train, y_train):
     return log, tree, forest
 
 
-# In[24]:
 
 
 model = models(X_train, y_train)
@@ -204,7 +177,6 @@ model = models(X_train, y_train)
 
 # ## Model Testing on Confusion Matrix & Accuracy Score
 
-# In[25]:
 
 
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report, ConfusionMatrixDisplay
@@ -226,7 +198,6 @@ for i in range(len(model)):
 
 # ## Predicting the Test set results
 
-# In[26]:
 
 
 for i in range(len(model)):
@@ -238,7 +209,6 @@ for i in range(len(model)):
 
 # ## Computing the accuracy with k-Fold Cross Validation
 
-# In[27]:
 
 
 from sklearn.model_selection import cross_val_score
@@ -249,8 +219,6 @@ for i in range(len(model)):
     print("Accuracy: {:.2f} %".format(accuracies.mean()*100))
     print("Standard Deviation: {:.2f} %".format(accuracies.std()*100))
 
-
-# In[ ]:
 
 
 
