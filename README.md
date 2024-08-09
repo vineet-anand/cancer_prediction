@@ -1,7 +1,10 @@
-# cancer_prediction
+# Cancer_Prediction
 
-Tool to predict the cancer using the tissue feature
+# Tool to predict the cancer using the tissue features.
 
-multiple Models has been used to find the best one.
 
-Code & Dataset
+## Models Utlized to predict:
+### 1. Logistic Regression
+### 2. Decision Tree Regression
+### 3. Random Forest Regression
+
